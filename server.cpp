@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include <boost/program_options.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+#include <boost/interprocess/sync/scoped_lock.hpp>
+#include <boost/interprocess/sync/interprocess_condition.hpp>
+
+#include "AbstractResource.h"
+#include "SharedMemoryBuffer.h"
+#include "SharedMemoryProtocol.h"
+#include "FileTransmitter.h"
+#include "namer.h"
+
+using namespace std;
+using namespace boost::program_options;
+using namespace boost::filesystem;
+using namespace boost::interprocess;
+
+int main( int argc, char *argv[] )
+{
+  Namer namer;
+
+  options_description desc("Server part of the file transmitter.");
+
+  desc.add_options()
+      ("help", "produce help message");
+
+  variables_map vm;
+  store( command_line_parser(argc, argv).options(desc).run(), vm);
+  notify(vm);
+
+  if ( vm.count("help") ) {
+    cout << desc << endl;
+    return 1;
+  }
+
+  std::unique_ptr<SharedMemoryProtocol> protocol;
+  std::unique_ptr<FileTransmitter> ft;
+
+  try  {
+    protocol = make_unique<SharedMemoryProtocol>( namer.GetSharedMemoryName(),
+                                                  to_string( reinterpret_cast<long>(main) ),
+                                                  1024*1024 );
+
+    ft = make_unique<FileTransmitter>( *protocol );
+  } catch (exception&) {
+    cout << "ERROR: Server not available." << endl;
+    return 1;
+  }
+
+  cout << "Receiving files..." << endl;
+
+  while (true) {
+    ft->receive();
+  }
+
+  return 0;
+}
