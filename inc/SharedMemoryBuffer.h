@@ -11,21 +11,22 @@
 
 using namespace std;
 
-#pragma pack(push, 1)
+//#pragma pack(push, 1)
 struct SharedMemoryBuffer
 {
-  string host;
-  string filename;
+  char host[20];
+  char filename[255];
   size_t offset;
   size_t size;
 
   boost::interprocess::interprocess_mutex      write_mutex;
   boost::interprocess::interprocess_mutex      read_mutex;
+  boost::interprocess::interprocess_mutex      cond_mutex;
   boost::interprocess::interprocess_condition  start_read;
 
-  char* byte_array;
+  char byte_array[1024*1024];
 };
-#pragma pack(pop)
+//#pragma pack(pop)
 
 #endif // SHAREDMEMORYBUFFER
 

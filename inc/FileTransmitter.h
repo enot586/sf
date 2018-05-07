@@ -23,6 +23,12 @@ public:
 
   bool transmit(const path& file_name);
   bool receive();
+  bool write_to_file(const string& host,
+                     const string& filename,
+                     void* buffer,
+                     const size_t offset,
+                     const size_t size);
+
 
 private:
   AbstractProtocol& protocol_;
