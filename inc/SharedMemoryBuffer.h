@@ -11,22 +11,33 @@
 
 using namespace std;
 
-//#pragma pack(push, 1)
 struct SharedMemoryBuffer
 {
-  char host[20];
+  char host[255];
   char filename[255];
   size_t offset;
   size_t size;
 
+  bool isReadyForData;
   boost::interprocess::interprocess_mutex      write_mutex;
-  boost::interprocess::interprocess_mutex      read_mutex;
-  boost::interprocess::interprocess_mutex      cond_mutex;
   boost::interprocess::interprocess_condition  start_read;
 
   char byte_array[1024*1024];
+
+  static size_t get_size()
+  {
+    return sizeof(byte_array);
+  }
+
+  SharedMemoryBuffer()
+  {
+    memset( host, 0x00, sizeof(host) );
+    memset( filename, 0x00, sizeof(filename) );
+    offset = 0;
+    size = 0;
+    isReadyForData = false;
+  }
 };
-//#pragma pack(pop)
 
 #endif // SHAREDMEMORYBUFFER
 

@@ -11,6 +11,10 @@ QMAKE_CXXFLAGS += -std=c++14
 
 HEADERS += ./inc/FileTransmitter.h \
            ./inc/SharedMemoryProtocol.h \
+           ./inc/SharedMemoryBuffer.h \
+           ./inc/AbstractProtocol.h \
+           ./inc/AbstractResource.h\
+    client.h
 
 SOURCES += client.cpp \
     ./src/FileTransmitter.cpp \

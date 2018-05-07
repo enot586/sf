@@ -18,6 +18,10 @@ INCLUDEPATH += ./inc/
 
 HEADERS += ./inc/FileTransmitter.h \
            ./inc/SharedMemoryProtocol.h \
+           ./inc/SharedMemoryBuffer.h \
+           ./inc/AbstractProtocol.h \
+           ./inc/AbstractResource.h\
+    server.h
 
 LIBS += -lrt
 LIBS += -lboost_program_options

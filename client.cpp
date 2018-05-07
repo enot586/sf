@@ -5,6 +5,7 @@
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
 
+#include "client.h"
 #include "FileTransmitter.h"
 #include "SharedMemoryProtocol.h"
 #include "namer.h"
@@ -17,6 +18,45 @@ int main( int argc, char *argv[] )
 {
   Namer namer;
 
+  try  {
+    vector<string> file_list = check_arguments(argc, argv);
+
+    SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),
+                                   to_string( reinterpret_cast<long>(main) ) );
+    FileTransmitter ft( protocol );
+
+    for (auto it : file_list) {
+      try {
+        path cfile = path(it);
+        if ( exists(cfile) && is_regular_file(cfile) ) {
+          if ( ft.transmit(cfile) ) {
+            cout << "SUCCESS: " << cfile << endl;
+          } else {
+            cout << "FAIL: " << cfile << endl;
+          }
+        } else {
+          cout << "WARN: File " << cfile.filename() << " not found" << endl;
+        }
+      } catch (exception& e) {
+        cout << e.what() << endl;
+      }
+    }
+  } catch (boost::interprocess::interprocess_exception&) {
+    cout << "ERROR: Server not available." << endl;
+    return -1;
+  } catch (boost::program_options::error& e) {
+    cout << e.what() << endl;
+    return -1;
+  } catch (std::invalid_argument& e) {
+    cout << e.what() << endl;
+    return -1;
+  }
+
+  return 0;
+}
+
+vector<string> check_arguments(int argc, char* argv[])
+{
   options_description desc("Files transmition to server part");
 
   desc.add_options()
@@ -29,46 +69,18 @@ int main( int argc, char *argv[] )
 
   if ( vm.count("help") ) {
     cout << desc << endl;
-    return 1;
+    exit(0);
   }
 
   if ( !vm.count("target") || (argc < 2) ) {
-    cout << "Nothing to send" << endl;
-    return 1;
-  }
-
-  std::unique_ptr<SharedMemoryProtocol> protocol;
-  std::unique_ptr<FileTransmitter> ft;
-
-  try  {
-    protocol = make_unique<SharedMemoryProtocol>( namer.GetSharedMemoryName(),
-                                                  to_string( reinterpret_cast<long>(main) ) );
-    ft = make_unique<FileTransmitter>( *protocol );
-  }
-  catch (exception&) {
-    cout << "ERROR: Server not available." << endl;
-    return 1;
+    throw boost::program_options::error("Nothing to send");
   }
 
   const vector<string>& file_list = vm["target"].as< vector<string> >();
 
-  for (auto it : file_list) {
-    try {
-      path cfile = path(it);
-      if ( exists(cfile) && is_regular_file(cfile) ) {
-        if ( ft->transmit(cfile) ) {
-          cout << "SUCCESS: " << cfile << endl;
-        } else {
-          cout << "FAIL: " << cfile << endl;
-        }
-      } else {
-        cout << "WARN: File " << cfile.filename() << " not found" << endl;
-      }
-    } catch (exception& e) {
-      cout << e.what() << endl;
-    }
+  if ( file_list.empty() ) {
+    throw boost::program_options::error("Nothing to send");
   }
 
-  return 0;
+  return file_list;
 }
-

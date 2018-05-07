@@ -25,13 +25,17 @@ SharedMemoryProtocol::SharedMemoryProtocol(const std::string& name, const std::s
   shared_memory_object::remove( name_.c_str() );
 
   p_ = std::make_unique<shared_memory_object>( create_only, name_.c_str(), read_write );
-  p_->truncate(sizeof(SharedMemoryBuffer)+size);
+  p_->truncate( std::max(sizeof(SharedMemoryBuffer), size) );
+
+  mapped_region region(*p_, read_write);
+  void* addr = region.get_address();
+
+  __attribute__((unused)) SharedMemoryBuffer* pBuffer = new (addr) SharedMemoryBuffer;
 }
 
 SharedMemoryProtocol::~SharedMemoryProtocol()
 {
-  if (p_.get() != nullptr)
-    shared_memory_object::remove( p_->get_name() );
+
 }
 
 bool SharedMemoryProtocol::connect()
@@ -62,22 +66,25 @@ bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size
   try {
     mapped_region region(*p_, read_write);
     void* addr = region.get_address();
-    SharedMemoryBuffer* pBuffer = new (addr) SharedMemoryBuffer;
+    SharedMemoryBuffer* pBuffer = (SharedMemoryBuffer*) addr;
 
-    //wait until server read the data
-    pBuffer->read_mutex.lock();
-    scoped_lock<interprocess_mutex> lock(pBuffer->write_mutex);
+    pBuffer->write_mutex.lock();
+    while (!pBuffer->isReadyForData) {};
 
     if (get_buffer_size() < size)
       return false;
 
-    pBuffer->host     = host_;
-    pBuffer->filename = filename;
+    memset( pBuffer->host, 0x00, sizeof( pBuffer->host) );
+    memcpy( pBuffer->host, host_.c_str(), host_.length() );
+
+    memset( pBuffer->filename, 0x00, sizeof(pBuffer->filename) );
+    memcpy( pBuffer->filename, filename.c_str(), filename.length() );
+
+    memcpy( pBuffer->byte_array, (char*)buffer, size);
     pBuffer->offset   = offset;
     pBuffer->size     = size;
 
-    memcpy(&pBuffer->byte_array, (char*)buffer+offset, size);
-    pBuffer->start_read.notify_one();
+    pBuffer->isReadyForData = false;
   } catch (exception&) {
     return false;
   }
@@ -90,28 +97,22 @@ bool SharedMemoryProtocol::receive(string& host, string& filename, unique_ptr<ch
   try {
     mapped_region region(*p_, read_write);
     void* addr = region.get_address();
-    SharedMemoryBuffer* pBuffer = new (addr) SharedMemoryBuffer;
+    SharedMemoryBuffer* pBuffer = (SharedMemoryBuffer*) addr;
 
-    boost::interprocess::interprocess_mutex m;
-    scoped_lock<interprocess_mutex> read_lock(m);
-    pBuffer->start_read.wait(read_lock);
+    pBuffer->isReadyForData = true;
+    while (pBuffer->isReadyForData) {};
 
-    scoped_lock<interprocess_mutex> write_lock(pBuffer->write_mutex);
     if (pBuffer->size) {
-      if (pBuffer->size > size)
-        return false;
-
-      host      = pBuffer->host;
-      filename  = pBuffer->filename;
+      host.assign( pBuffer->host );
+      filename.assign( pBuffer->filename );
       offset    = pBuffer->offset;
       size      = pBuffer->size;
 
       buffer = unique_ptr<char>(new char[size]);
       memcpy(buffer.get(), pBuffer->byte_array, pBuffer->size);
 
-      pBuffer->read_mutex.unlock();
+      pBuffer->write_mutex.unlock();
     }
-
   } catch (exception&) {
     return false;
   }
@@ -121,12 +122,5 @@ bool SharedMemoryProtocol::receive(string& host, string& filename, unique_ptr<ch
 
 size_t SharedMemoryProtocol::get_buffer_size()
 {
-  offset_t s = 0;
-  p_->get_size(s);
-
-  offset_t service_size = (sizeof(SharedMemoryBuffer) - sizeof(char*) );
-  if ( s > service_size)
-    return (s - service_size);
-
-  return 0;
+  return SharedMemoryBuffer::get_size();
 }

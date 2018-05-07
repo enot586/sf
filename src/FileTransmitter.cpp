@@ -2,8 +2,7 @@
 #include <fstream>
 #include <thread>
 
-#include <boost/asio/ip/host_name.hpp>
-
+#include <boost/filesystem.hpp>
 #include "FileTransmitter.h"
 
 FileTransmitter::FileTransmitter(AbstractProtocol& protocol):
@@ -48,12 +47,45 @@ bool FileTransmitter::receive()
     size_t size;
 
     if ( protocol_.receive(host, filename, buffer, offset, size) ) {
-      //TODO: create folder, file...
-      return true;
+      try {
+        cout << "h: "<< host << "f: " << filename << "o: " << offset << " s: " << size << endl;
+        return write_to_file(host, filename, buffer.get(), offset, size);
+      } catch (exception&) {
+        cout << "ERROR: Cant\'t write file !" << endl;
+      }
     }
   } catch(exception&) {
     return false;
   }
 
   return false;
+}
+
+bool FileTransmitter::write_to_file(const string& host, const string& filename,
+                                    void* buffer, const size_t offset,
+                                    const size_t size)
+{
+  path dir( host.c_str() );
+
+  if ( !(exists(dir) && is_directory(dir) ) ) {
+    create_directory(dir);
+  }
+
+  path p(dir);
+  p += "/";
+  p += filename;
+
+  if ( !(exists(p) && is_regular_file(p) ) ) {
+    ofstream f( p.c_str(), ios::binary );
+    f.seekp(offset);
+    f.write((char*)buffer, size);
+    f.close();
+  } else {
+     fstream f(p.c_str(), ios::binary | ios::out | ios::in);
+     f.seekp(offset, ios::beg);
+     f.write((char*)buffer, size);
+     f.close();
+  }
+
+  return true;
 }

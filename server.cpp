@@ -9,6 +9,7 @@
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/interprocess/sync/interprocess_condition.hpp>
 
+#include "server.h"
 #include "AbstractResource.h"
 #include "SharedMemoryBuffer.h"
 #include "SharedMemoryProtocol.h"
@@ -24,6 +25,41 @@ int main( int argc, char *argv[] )
 {
   Namer namer;
 
+  try  {
+    check_arguments(argc, argv);
+
+    SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),
+                                   to_string( reinterpret_cast<long>(main) ),
+                                   1024*1024 );
+    FileTransmitter ft(protocol);
+
+    cout << "Receiving files..." << endl;
+
+    try {
+      while (true) {
+        ft.receive();
+      }
+    } catch(exception&) {
+      cout << "ERROR: Server crash during transmition" << endl;
+      return -1;
+    }
+
+  } catch (boost::interprocess::interprocess_exception&) {
+    cout << "ERROR: Server not available." << endl;
+    return -1;
+  } catch (boost::program_options::error& e) {
+    cout << e.what() << endl;
+    return -1;
+  } catch (std::invalid_argument& e) {
+    cout << e.what() << endl;
+    return -1;
+  }
+
+  return 0;
+}
+
+void check_arguments(int argc, char* argv[])
+{
   options_description desc("Server part of the file transmitter.");
 
   desc.add_options()
@@ -35,28 +71,8 @@ int main( int argc, char *argv[] )
 
   if ( vm.count("help") ) {
     cout << desc << endl;
-    return 1;
+    exit(0);
   }
 
-  std::unique_ptr<SharedMemoryProtocol> protocol;
-  std::unique_ptr<FileTransmitter> ft;
-
-  try  {
-    protocol = make_unique<SharedMemoryProtocol>( namer.GetSharedMemoryName(),
-                                                  to_string( reinterpret_cast<long>(main) ),
-                                                  1024*1024 );
-
-    ft = make_unique<FileTransmitter>( *protocol );
-  } catch (exception&) {
-    cout << "ERROR: Server not available." << endl;
-    return 1;
-  }
-
-  cout << "Receiving files..." << endl;
-
-  while (true) {
-    ft->receive();
-  }
-
-  return 0;
+  //TODO: add flag for delete all files
 }
