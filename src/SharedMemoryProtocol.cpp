@@ -30,7 +30,7 @@ SharedMemoryProtocol::SharedMemoryProtocol(const std::string& name, const std::s
   mapped_region region(*p_, read_write);
   void* addr = region.get_address();
 
-  __attribute__((unused)) SharedMemoryBuffer* pBuffer = new (addr) SharedMemoryBuffer;
+  /*__attribute__((unused))*/ SharedMemoryBuffer* pBuffer = new (addr) SharedMemoryBuffer;
 }
 
 SharedMemoryProtocol::~SharedMemoryProtocol()

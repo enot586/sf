@@ -1,2 +1,7 @@
 /build-client-Desktop-Debug/
 /build-server-Desktop-Debug/
+/Debug_client/
+/Debug_server/
+/Release_client/
+/Release_server/
+/.vs/
