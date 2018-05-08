@@ -6,12 +6,15 @@
 #include <utility>
 #include <iostream>
 
+#include <boost/interprocess/windows_shared_memory.hpp>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/interprocess/sync/named_mutex.hpp>
 
 #include "AbstractProtocol.h"
 #include "SharedMemoryBuffer.h"
+
+#define WINDOWS
 
 using namespace std;
 using namespace boost::interprocess;
@@ -20,11 +23,7 @@ class SharedMemoryProtocol : public AbstractProtocol
 {
 public:
   //for client
-  SharedMemoryProtocol(const std::string& name, const std::string& host);
-
-  //for server
-  SharedMemoryProtocol(const std::string& name, const std::string& host, size_t size);
-
+  SharedMemoryProtocol(const std::string& name, const std::string& host, bool isServer=false);
   ~SharedMemoryProtocol();
 
   virtual bool connect() override;
@@ -37,8 +36,14 @@ public:
 private:
   string host_;
   string filename_;
-  const string& name_;
-  std::unique_ptr<shared_memory_object> p_;
+  string name_;
+  bool isServer_;
+
+#ifdef WINDOWS
+  unique_ptr<windows_shared_memory> p_;
+#else
+  unique_ptr<shared_memory_object> p_;
+#endif
 
 };
 

@@ -30,27 +30,24 @@ int main( int argc, char *argv[] )
 
     SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),
                                    to_string( reinterpret_cast<long>(main) ),
-                                   1024*1024 );
+                                   true );
     FileTransmitter ft(protocol);
 
     cout << "Receiving files..." << endl;
 
-    try {
-      while (true) {
-        ft.receive();
-      }
-    } catch(exception&) {
-      cout << "ERROR: Server crash during transmition" << endl;
-      return -1;
+    while (true) {
+      ft.receive();
     }
-
-  } catch (boost::interprocess::interprocess_exception&) {
+  } 
+  catch (boost::interprocess::interprocess_exception&) {
     cout << "ERROR: Server not available." << endl;
     return -1;
-  } catch (boost::program_options::error& e) {
+  } 
+  catch (boost::program_options::error& e) {
     cout << e.what() << endl;
     return -1;
-  } catch (std::invalid_argument& e) {
+  } 
+  catch (std::invalid_argument& e) {
     cout << e.what() << endl;
     return -1;
   }
