@@ -41,13 +41,16 @@ int main( int argc, char *argv[] )
         cout << e.what() << endl;
       }
     }
-  } catch (boost::interprocess::interprocess_exception&) {
+  } 
+  catch (boost::interprocess::interprocess_exception&) {
     cout << "ERROR: Server not available." << endl;
     return -1;
-  } catch (boost::program_options::error& e) {
+  } 
+  catch (boost::program_options::error& e) {
     cout << e.what() << endl;
     return -1;
-  } catch (std::invalid_argument& e) {
+  } 
+  catch (std::invalid_argument& e) {
     cout << e.what() << endl;
     return -1;
   }

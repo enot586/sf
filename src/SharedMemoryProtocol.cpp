@@ -11,7 +11,7 @@ using namespace std;
 using namespace boost::interprocess;
 
 SharedMemoryProtocol::SharedMemoryProtocol(const std::string& name, const std::string& host, bool isServer) :
-  host_(host), name_(name), isServer_(isServer), p_(nullptr)
+  host_(host), name_(name), isServer_(isServer)
 {
   cout << ((isServer_) ? "Server" : "Client") << endl;
   cout << "name: " << name_ << endl;
