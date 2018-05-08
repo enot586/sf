@@ -14,7 +14,7 @@
 #include "SharedMemoryBuffer.h"
 #include "SharedMemoryProtocol.h"
 #include "FileTransmitter.h"
-#include "namer.h"
+#include "ComNamer.h"
 
 using namespace std;
 using namespace boost::program_options;
@@ -23,7 +23,7 @@ using namespace boost::interprocess;
 
 int main( int argc, char *argv[] )
 {
-  Namer namer;
+  ComNamer namer;
 
   try  {
     check_arguments(argc, argv);

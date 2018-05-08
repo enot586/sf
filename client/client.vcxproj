@@ -19,18 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\inc\ATLProject3_i.c" />
+    <ClCompile Include="..\src\ComNamer.cpp" />
+    <ClCompile Include="..\src\FileTransmitter.cpp" />
+    <ClCompile Include="..\src\SharedMemoryProtocol.cpp" />
     <ClCompile Include="client.cpp" />
-    <ClCompile Include="src\FileTransmitter.cpp" />
-    <ClCompile Include="src\SharedMemoryProtocol.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\inc\AbstractProtocol.h" />
+    <ClInclude Include="..\inc\AbstractResource.h" />
+    <ClInclude Include="..\inc\ATLProject3_i.h" />
+    <ClInclude Include="..\inc\ComNamer.h" />
+    <ClInclude Include="..\inc\FileTransmitter.h" />
+    <ClInclude Include="..\inc\SharedMemoryBuffer.h" />
+    <ClInclude Include="..\inc\SharedMemoryProtocol.h" />
     <ClInclude Include="client.h" />
-    <ClInclude Include="inc\AbstractProtocol.h" />
-    <ClInclude Include="inc\AbstractResource.h" />
-    <ClInclude Include="inc\FileTransmitter.h" />
-    <ClInclude Include="inc\namer.h" />
-    <ClInclude Include="inc\SharedMemoryBuffer.h" />
-    <ClInclude Include="inc\SharedMemoryProtocol.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -91,7 +94,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_client|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\boost\boost\filesystem;C:\boost\boost\program_options;$(IncludePath)</IncludePath>
+    <IncludePath>D:\projects\sf\inc;C:\boost\boost\filesystem;C:\boost\boost\program_options;$(IncludePath)</IncludePath>
     <LibraryPath>C:\boost\lib32-msvc-14.0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_client|Win32'">

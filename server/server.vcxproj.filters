@@ -18,10 +18,16 @@
     <ClCompile Include="server.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileTransmitter.cpp">
+    <ClCompile Include="..\inc\ATLProject3_i.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\SharedMemoryProtocol.cpp">
+    <ClCompile Include="..\src\ComNamer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileTransmitter.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SharedMemoryProtocol.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,22 +35,25 @@
     <ClInclude Include="server.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\AbstractProtocol.h">
+    <ClInclude Include="..\inc\AbstractProtocol.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\AbstractResource.h">
+    <ClInclude Include="..\inc\AbstractResource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\FileTransmitter.h">
+    <ClInclude Include="..\inc\ATLProject3_i.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\namer.h">
+    <ClInclude Include="..\inc\ComNamer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\SharedMemoryBuffer.h">
+    <ClInclude Include="..\inc\FileTransmitter.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\SharedMemoryProtocol.h">
+    <ClInclude Include="..\inc\SharedMemoryBuffer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\SharedMemoryProtocol.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

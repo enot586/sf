@@ -13,39 +13,67 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Созданные файлы">
+      <UniqueIdentifier>{92c5fe5b-a7ae-4101-9f2b-9cf3bf04cf5c}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\FileTransmitter.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\SharedMemoryProtocol.cpp">
+    <ClCompile Include="ATLProject3.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="client.cpp">
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ATLProject3_i.c">
+      <Filter>Созданные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\AbstractProtocol.h">
+    <ClInclude Include="stdafx.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\AbstractResource.h">
+    <ClInclude Include="targetver.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\FileTransmitter.h">
+    <ClInclude Include="Resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\namer.h">
+    <ClInclude Include="dllmain.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\SharedMemoryBuffer.h">
+    <ClInclude Include="ATLProject3_i.h">
+      <Filter>Созданные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="inc\SharedMemoryProtocol.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="client.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ATLProject3.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ATLProject3.rgs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="ATLProject3.def">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="Object.rgs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ATLProject3.idl">
+      <Filter>Исходные файлы</Filter>
+    </Midl>
   </ItemGroup>
 </Project>

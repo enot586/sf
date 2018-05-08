@@ -27,7 +27,7 @@ bool FileTransmitter::transmit(const path& file_name)
     size_t offset = 0;
     while ( offset != file_size(file_name) ) {
       fs.read(buffer.get(), portion);
-      size_t tx_data = fs.gcount();
+      size_t tx_data = (size_t)fs.gcount();
       if ( protocol_.send(file_name.string(), buffer.get(), offset, tx_data) ) {
         offset+= tx_data;
       }

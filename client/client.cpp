@@ -8,7 +8,7 @@
 #include "client.h"
 #include "FileTransmitter.h"
 #include "SharedMemoryProtocol.h"
-#include "namer.h"
+#include "ComNamer.h"
 
 using namespace std;
 using namespace boost::program_options;
@@ -16,7 +16,7 @@ using namespace boost::filesystem;
 
 int main( int argc, char *argv[] )
 {
-  Namer namer;
+  ComNamer namer;
 
   try  {
     vector<string> file_list = check_arguments(argc, argv);
