@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATLProject3", "ATLProject3\ATLProject3.vcxproj", "{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATLProject3", "ATLProject3\ATLProject3.vcxproj", "{1D242AD2-658F-4C92-8571-A39EC6B16B66}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATLProject3PS", "ATLProject3PS\ATLProject3PS.vcxproj", "{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATLProject3PS", "ATLProject3PS\ATLProject3PS.vcxproj", "{A68B1BEA-2531-49FF-B440-244124DFFBC1}"
 	ProjectSection(ProjectDependencies) = postProject
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0} = {53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}
+		{1D242AD2-658F-4C92-8571-A39EC6B16B66} = {1D242AD2-658F-4C92-8571-A39EC6B16B66}
 	EndProjectSection
 EndProject
 Global
@@ -16,17 +16,17 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x86.ActiveCfg = Debug|Win32
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x86.Build.0 = Debug|Win32
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x86.ActiveCfg = Release|Win32
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x86.Build.0 = Release|Win32
-		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Debug|x86.ActiveCfg = Debug|Win32
-		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Release|x86.ActiveCfg = Release|Win32
+		{1D242AD2-658F-4C92-8571-A39EC6B16B66}.Debug|x86.ActiveCfg = Debug|Win32
+		{1D242AD2-658F-4C92-8571-A39EC6B16B66}.Debug|x86.Build.0 = Debug|Win32
+		{1D242AD2-658F-4C92-8571-A39EC6B16B66}.Release|x86.ActiveCfg = Release|Win32
+		{1D242AD2-658F-4C92-8571-A39EC6B16B66}.Release|x86.Build.0 = Release|Win32
+		{A68B1BEA-2531-49FF-B440-244124DFFBC1}.Debug|x86.ActiveCfg = Debug|Win32
+		{A68B1BEA-2531-49FF-B440-244124DFFBC1}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A204F9AD-B7D4-4372-9B8D-7F96188DFF6C}
+		SolutionGuid = {47F8DAFB-BE9A-4C9D-8488-BFB4372ABB87}
 	EndGlobalSection
 EndGlobal

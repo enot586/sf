@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}</ProjectGuid>
+    <ProjectGuid>{A68B1BEA-2531-49FF-B440-244124DFFBC1}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <Keyword>AtlPSProj</Keyword>
   </PropertyGroup>

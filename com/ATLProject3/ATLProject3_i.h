@@ -84,7 +84,7 @@ EXTERN_C const IID IID_IObject;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
-    MIDL_INTERFACE("49933f31-6dce-4217-8f9a-7a099b03c4f5")
+    MIDL_INTERFACE("6fa0b230-8cfd-42aa-b1a7-1afdeb1a43aa")
     IObject : public IDispatch
     {
     public:
@@ -217,7 +217,7 @@ EXTERN_C const CLSID CLSID_Object;
 
 #ifdef __cplusplus
 
-class DECLSPEC_UUID("ec20ae33-9c12-4ac1-b741-0be7f5091318")
+class DECLSPEC_UUID("a4fc72a2-4e86-4e1b-b7d4-070464770d86")
 Object;
 #endif
 #endif /* __ATLProject3Lib_LIBRARY_DEFINED__ */

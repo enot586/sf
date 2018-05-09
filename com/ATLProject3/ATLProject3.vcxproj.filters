@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Созданные файлы">
-      <UniqueIdentifier>{92c5fe5b-a7ae-4101-9f2b-9cf3bf04cf5c}</UniqueIdentifier>
+      <UniqueIdentifier>{2e867eee-b5f9-4a4a-85d6-0b72be0ecfb2}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
@@ -23,9 +23,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ATLProject3.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="dllmain.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ATLProject3_i.c">
@@ -45,9 +42,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="dllmain.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="ATLProject3_i.h">
       <Filter>Созданные файлы</Filter>
     </ClInclude>
@@ -63,9 +57,6 @@
   <ItemGroup>
     <None Include="ATLProject3.rgs">
       <Filter>Файлы ресурсов</Filter>
-    </None>
-    <None Include="ATLProject3.def">
-      <Filter>Исходные файлы</Filter>
     </None>
     <None Include="Object.rgs">
       <Filter>Файлы ресурсов</Filter>
