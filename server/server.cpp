@@ -23,18 +23,18 @@ using namespace boost::interprocess;
 
 int main( int argc, char *argv[] )
 {
+  //service for naming shared memory
   ComNamer namer;
 
   try  {
     check_arguments(argc, argv);
 
     SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),
-                                   to_string( reinterpret_cast<long>(main) ),
-                                   true );
+                                   to_string( reinterpret_cast<long>(main) ), //unique host name
+                                   true ); // server protocol
     FileTransmitter ft(protocol);
 
     cout << "Receiving files..." << endl;
-
     while (true) {
       ft.receive();
     }

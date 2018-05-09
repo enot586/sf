@@ -17,6 +17,11 @@ FileTransmitter::~FileTransmitter()
   protocol_.disconnect();
 }
 
+/**
+* Transmit target file through defined protocol to server.
+* @param file_name: filesystem object
+* @warning: Blocking function!
+*/
 bool FileTransmitter::transmit(const path& file_name)
 {
   try {
@@ -49,6 +54,10 @@ bool FileTransmitter::transmit(const path& file_name)
   return true;
 }
 
+/**
+* Receive file from client using defined protocol.
+* @warning: Blocking function!
+*/
 bool FileTransmitter::receive()
 {
   try {
@@ -73,6 +82,9 @@ bool FileTransmitter::receive()
   return false;
 }
 
+/**
+* Write received file to disk with naming policy
+*/
 bool FileTransmitter::write_to_file(const string& host, const string& filename,
                                     void* buffer, const size_t offset,
                                     const size_t size)

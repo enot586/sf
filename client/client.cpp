@@ -16,15 +16,18 @@ using namespace boost::filesystem;
 
 int main( int argc, char *argv[] )
 {
+  //service for naming shared memory
   ComNamer namer;
 
   try  {
+    //We are getting file list from console arguments
     vector<string> file_list = check_arguments(argc, argv);
 
-    SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),
-                                   to_string( reinterpret_cast<long>(main) ) );
+    SharedMemoryProtocol protocol( namer.GetSharedMemoryName(),                //shared memory name
+                                   to_string( reinterpret_cast<long>(main) ) );//unique host name
     FileTransmitter ft( protocol );
 
+    //Pass one file at a time from one client
     for (auto it : file_list) {
       try {
         path cfile = path(it);
