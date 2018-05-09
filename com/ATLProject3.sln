@@ -12,23 +12,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATLProject3PS", "ATLProject
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x64.ActiveCfg = Debug|x64
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x64.Build.0 = Debug|x64
 		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x86.ActiveCfg = Debug|Win32
 		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Debug|x86.Build.0 = Debug|Win32
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x64.ActiveCfg = Release|x64
-		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x64.Build.0 = Release|x64
 		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x86.ActiveCfg = Release|Win32
 		{53FC18DB-BEA4-4A0E-BA6F-D58C08B79BE0}.Release|x86.Build.0 = Release|Win32
-		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Debug|x64.ActiveCfg = Debug|x64
 		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Debug|x86.ActiveCfg = Debug|Win32
-		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Release|x64.ActiveCfg = Release|x64
 		{2724AC9A-C1AB-4E31-BA1E-E002E1F308E4}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

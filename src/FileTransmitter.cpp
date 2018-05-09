@@ -63,7 +63,7 @@ bool FileTransmitter::receive()
         cout << "from: "<< host << " receive part of: " << filename << " offset: " << offset << " size: " << size << endl;
         return write_to_file(host, filename, buffer.get(), offset, size);
       } catch (exception&) {
-        cout << "ERROR: Cant\'t write file !" << endl;
+        cout << "ERROR: Failed to write file to Disk!" << endl;
       }
     }
   } catch(exception&) {

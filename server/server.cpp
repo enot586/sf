@@ -51,6 +51,10 @@ int main( int argc, char *argv[] )
     cout << e.what() << endl;
     return -1;
   }
+  catch (...) {
+    cout << "ERROR: Unknown error." << endl;
+    return -1;
+  }
 
   return 0;
 }
