@@ -54,7 +54,7 @@ bool FileTransmitter::receive()
   try {
     string host;
     string filename;
-    unique_ptr<char> buffer;
+    unique_ptr<char[]> buffer;
     size_t offset;
     size_t size;
 

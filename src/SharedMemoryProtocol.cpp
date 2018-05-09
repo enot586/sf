@@ -78,12 +78,12 @@ bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size
     mapped_region region(*p_, read_write);
     SharedMemoryBuffer* pBuffer = (SharedMemoryBuffer*)region.get_address();
 
-    cout << "isReadyForData=" << pBuffer->isReadyForData << endl;
-
     pBuffer->write_mutex.lock();
     while (!pBuffer->isReadyForData) {};
 
-    if (get_buffer_size() < size)
+    if ( (get_buffer_size() < size) ||
+         ( host_.length() >= sizeof(pBuffer->host) ) ||
+         ( filename.length() >= sizeof(pBuffer->filename) ) )
       return false;
 
     memset( pBuffer->host, 0x00, sizeof( pBuffer->host) );
@@ -104,7 +104,7 @@ bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size
   return true;
 }
 
-bool SharedMemoryProtocol::receive(string& host, string& filename, unique_ptr<char>& buffer, size_t& offset, size_t& size)
+bool SharedMemoryProtocol::receive(string& host, string& filename, unique_ptr<char[]>& buffer, size_t& offset, size_t& size)
 {
   mapped_region region(*p_, read_write);
   SharedMemoryBuffer* pBuffer = (SharedMemoryBuffer*)region.get_address();
@@ -118,7 +118,7 @@ bool SharedMemoryProtocol::receive(string& host, string& filename, unique_ptr<ch
     offset    = pBuffer->offset;
     size      = pBuffer->size;
 
-    buffer = unique_ptr<char>( new char[size] );
+    buffer.reset( new char[size] );
     memcpy(buffer.get(), pBuffer->byte_array, pBuffer->size);
 
     pBuffer->write_mutex.unlock();

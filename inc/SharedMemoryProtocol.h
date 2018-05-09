@@ -30,7 +30,7 @@ public:
   virtual void disconnect() override;
   virtual bool isConnected() override;
   virtual bool send(const string& filename, const void* buffer, size_t offset, size_t size) override;
-  virtual bool receive(string& host, string& filename, unique_ptr<char>& buffer, size_t& offset, size_t& size) override;
+  virtual bool receive(string& host, string& filename, unique_ptr<char[]>& buffer, size_t& offset, size_t& size) override;
   virtual size_t get_buffer_size() override;
 
 private:

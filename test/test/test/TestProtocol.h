@@ -28,12 +28,12 @@ public:
     return true;
   }
 
-  bool receive(string& host, string& filename, unique_ptr<char>& buffer, size_t& offset, size_t& size) override
+  bool receive(string& host, string& filename, unique_ptr<char[]>& buffer, size_t& offset, size_t& size) override
   {
     host = host_;
     filename = filename_;
-    buffer.reset(new char[sizeof(buffer_)]);
-    memcpy(buffer.get(), buffer_, sizeof(buffer_));
+    buffer.reset( new char[ sizeof(buffer_) ] );
+    memcpy( buffer.get(), buffer_, sizeof(buffer_) );
     offset = offset_;
     size = size_;
 
