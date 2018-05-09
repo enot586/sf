@@ -90,10 +90,11 @@ bool SharedMemoryProtocol::isConnected()
 */
 bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size_t offset, size_t size)
 {
+  SharedMemoryBuffer* pBuffer = nullptr;
   try {
     //Get shared memory region address
     mapped_region region(*p_, read_write);
-    SharedMemoryBuffer* pBuffer = (SharedMemoryBuffer*)region.get_address();
+    pBuffer = (SharedMemoryBuffer*)region.get_address();
 
     /**
      * Main synchronization part !
@@ -109,10 +110,12 @@ bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size
      */
     
     //Check troubles
-    if ( (get_buffer_size() < size) ||
-         ( host_.length() >= sizeof(pBuffer->host) ) ||
-         ( filename.length() >= sizeof(pBuffer->filename) ) )
+    if ((get_buffer_size() < size) ||
+        (host_.length() >= sizeof(pBuffer->host)) ||
+        (filename.length() >= sizeof(pBuffer->filename))) {
+      pBuffer->write_mutex.unlock();
       return false;
+    }
 
     //Load current data to shared memory
     memset( pBuffer->host, 0x00, sizeof( pBuffer->host) );
@@ -134,9 +137,10 @@ bool SharedMemoryProtocol::send(const string& filename, const void* buffer, size
     /**
     * @}
     */
-  } catch (exception&) {
+  } catch (...) {
+    pBuffer->write_mutex.unlock();
     return false;
-  }
+  } 
 
   return true;
 }

@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <atomic>
 
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/sync/interprocess_mutex.hpp>
@@ -18,9 +19,9 @@ struct SharedMemoryBuffer
   size_t offset;
   size_t size;
 
-  bool isReadyForData;
-  boost::interprocess::interprocess_mutex      write_mutex;
-  boost::interprocess::interprocess_condition  start_read;
+  atomic_bool isReadyForData;
+  boost::interprocess::interprocess_mutex write_mutex;
+  boost::interprocess::interprocess_mutex start_read;
 
   char byte_array[1024*1024];
 

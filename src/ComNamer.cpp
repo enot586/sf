@@ -9,7 +9,7 @@ using namespace std;
 
 ComNamer::ComNamer()
 {
-  if ( FAILED( CoInitialize(NULL) ) )
+  if ( FAILED(CoInitializeEx(NULL, COINIT_MULTITHREADED) ) )
   {
     throw std::runtime_error("ERROR: Can\'t initialize COM object.");
   }
