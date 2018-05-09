@@ -1,3 +1,4 @@
+/bin		- Release binary files
 /com 		- ATL DLL with class name supplier for sharing memory
   /deploy.bat	- Refresh AtlProject3_i.c and ATLProject3_i.h in /inc for all projects after build
 /client		- Application for trasmit files through shared memory
